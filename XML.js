@@ -1,122 +1,122 @@
-var befolkningUrl = "http://wildboy.uib.no/~tpe056/folk/104857.json";
-var sysselsatteUrl = "http://wildboy.uib.no/~tpe056/folk/100145.json"
-var utdanningUrl = "http://wildboy.uib.no/~tpe056/folk/85432.json"
-//var befolkning = "https://no.wikipedia.org/wiki/John_King_Davis"
+load = function(callback, obj) {
+    obj.onload(0)
+    let xhr = new XMLHttpRequest();
+    xhr.open("GET", obj.url);
+
+    xhr.onreadystatechange = function(){
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            response = JSON.parse(xhr.responseText);
+            if(callback) {
+              callback(response, obj)
+            }
+            obj.onload(1)
+        }
+    };
+    xhr.send()
+}
+
+getData = function(response, obj) { // Sets data_obj.data as the xhr response.
+// Don't call this function directly! Use "load(getData, data_obj)"
+  obj.data = response
+}
 
 
-function Data(url, output)
-{
-  this.data = {}
-  this.load = function(callback, loadText) {
-      let xhr = new XMLHttpRequest();
-      xhr.open("GET", url);
-      if(loadText){
-        document.getElementById("loading").innerHTML = "LOADING"
-      }
-      xhr.onreadystatechange = function(){
-          if (xhr.readyState === 4 && xhr.status === 200) {
-              document.getElementById("loading").innerHTML = ""
-
-              response = JSON.parse(xhr.responseText);
-              console.log(response)
-              callback(response)
-              //callback(data)
-              //console.log(xhr.response)
-              //var response = xhr.responseText
-              //console.log(response);
-          }
-      };
-      xhr.send()
-  }
-
-  /*this.load = function(response) {
-    //console.log(response)
-    //this.data["contents"] = response
-    //return this.data
-  }*/
+function Data(url) {
   this.url = url;
+  this.data = undefined // The dataset from load()
 
-
-  listElement = document.getElementById("list")
 
   this.getNames = function() {
-    function hentKommuner(response) {
-      if(response.elementer){
-        textOutput = "<ul>"
-        for (var kommune in response.elementer) {
-          textOutput += "<li>"+kommune+"</li>"
-        }
-        listElement.innerHTML = textOutput + "</ul>"
-      } else {
-        listElement.innerHTML = "Kunne ikke finne kommunene"
+    var kommuner = this.data.elementer
+
+    if(kommuner) {
+      var result = []
+      for (var kommune in kommuner) {
+        result.push(kommune)
       }
     }
-
-    this.load(hentKommuner)
+    return result.sort()
   }
 
   this.getIDs = function() {
-    function hentNummere(response) {
-      kommuner = response.elementer
-      if(kommuner) {
-        textOutput = "<ul>"
-        for (var kommune in kommuner) {
-          textOutput += "<li>"+kommuner[kommune].kommunenummer+" - "+kommune+"</li>"
-        }
-        listElement.innerHTML = textOutput + "</ul>"
-      } else {
-        listElement.innerHTML = "Kunne ikke finne kommunene"
+    var kommuner = this.data.elementer
+
+    if(kommuner) {
+      var result = []
+      for(var kommune in kommuner) {
+        result.push(kommuner[kommune].kommunenummer)
       }
     }
-    this.load(hentNummere)
+    return result
   }
 
-  this.getInfo = function(kommunenummer) {
-    /*for (var number in kommunenummer) {
-      console.log(number)
-    }*/
-    function hentInfo(response) {
-      kommuner = response.elementer
-      if(kommuner) {
-        for (var kommune in kommuner) {
-          if(kommuner[kommune].kommunenummer == kommunenummer) {
-            console.log(kommuner[kommune]);
-            return
-          }
-        }
-        listElement.innerHTML = "Kunne ikke finne noen kommuner med tilsvarende kommunenummer"
-      } else {
-        listElement.innerHTML = "Klarer ikke å finne noen kommuner i JSON-filen"
+  this.getInfo = function(nr) { // nr has to be a string! ("1234")
+    var kommuner = this.data.elementer
+
+    for(var kommune in kommuner) {
+      if(kommuner[kommune].kommunenummer == nr) {
+        return {"data":kommuner[kommune], "name":kommune}
       }
     }
-  this.load(hentInfo)
+  }
+
+  this.onload = function(loaded) {
+    loadText = document.getElementById("loading")
+    if(loaded) {
+      if(loadText) {
+        loadText.style.display = "none"
+      }
+
+      console.log("Finished loading")
+    } else {
+      if(loadText) {
+        loadText.style.display = "inline"
+      }
+
+      console.log("Loading")
+    }
   }
 }
 
 
+function writeList(data, elemName) {
+  listElement = document.getElementById(elemName)
+  listElement.innerHTML = "<ul><li>"+data.join("</li><li>")+"</li></ul>"
+}
+
+function writeInfo(data, elemName) {
+  listElement = document.getElementById(elemName)
+  listElement.innerHTML = data.name
+  return data.data
+}
+
+befolkning_url = "http://wildboy.uib.no/~tpe056/folk/104857.json"
+sysselsatte_url = "http://wildboy.uib.no/~tpe056/folk/100145.json"
+utdanning_url = "http://wildboy.uib.no/~tpe056/folk/85432.json"
 
 
-/*
+befolkning_obj = new Data(befolkning_url)
+sysselsatte_obj = new Data(sysselsatte_url)
+utdanning_obj = new Data(utdanning_url)
 
-function printKommuner(names) {
-  var nameList = document.getElementById("namelist");//document.getElementById('namelist');
-  console.log(names)
-  if(names)
-  {
-    textOutput = "<ul>"
-    for (var kommune in befolkning.getNames) {
-      textOutput += "<li>"+kommune+"</li>";
+
+
+window.onload = function(){
+load(getData, befolkning_obj)
+load(getData, sysselsatte_obj)
+load(getData, utdanning_obj)
+}
+
+
+/* Kanskje unnødvendig. for å sjekke om datasettene har nøyaktig samme kommuner
+function checkEqual(obj1, obj2) {
+  names1 = obj1.getNames()
+  names2 = obj2.getNames()
+
+  for (var i = 0; i < names1.length; i++) {
+    if(names1[i] != names2[i]) {
+      console.log(names1[i],"!=",names2[i])
     }
-
-
-    nameList.innerHTML = textOutput;
-  } else {
-  nameList.innerHTML = "Klarte ikke å finne kommunene";
   }
 }
 */
-
-window.onload = function() {
-  befolkning = new Data("http://wildboy.uib.no/~tpe056/folk/104857.json")
-  //printKommuner(befolkning.getNames(befolkning.load(befolkning.getNames)));
-}
