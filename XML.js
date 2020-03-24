@@ -1,3 +1,5 @@
+xhrLoadings = {}
+
 load = function(callback, obj) {
     obj.onload(0)
     let xhr = new XMLHttpRequest();
@@ -5,6 +7,7 @@ load = function(callback, obj) {
 
     xhr.onreadystatechange = function(){
         if (xhr.readyState === 4 && xhr.status === 200) {
+            console.log("Did it")
             response = JSON.parse(xhr.responseText);
             if(callback) {
               callback(response, obj)
@@ -61,20 +64,26 @@ function Data(url) {
   }
 
   this.onload = function(loaded) {
-    loadText = document.getElementById("loading")
-    if(loaded) {
-      if(loadText) {
-        loadText.style.display = "none"
-      }
+    xhrLoadings[this.url] = loaded
+    allLoaded()
+  }
+}
 
-      console.log("Finished loading")
-    } else {
+function allLoaded() { // Checks if all datasets have finished loading
+  console.log(xhrLoadings)
+  loadText = document.getElementById("loading")
+  for(var load in xhrLoadings) {
+    if(xhrLoadings[load] != 1) {
+      // Is still loading
       if(loadText) {
         loadText.style.display = "inline"
       }
-
-      console.log("Loading")
+      return
     }
+  }
+  // Has finished loading
+  if(loadText) {
+    loadText.style.display = "none"
   }
 }
 
