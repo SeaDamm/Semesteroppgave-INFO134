@@ -2,7 +2,7 @@
 //is being called by button onclick in html
 
 function viseInnhold(innhold) {
-  var contents = document.getElementById("noe").children
+  var contents = document.getElementsByTagName('main')[0].children
   for(var node in contents) {
     contents[node].className = "hidden"
     if(contents[node].id == innhold) {
