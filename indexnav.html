@@ -9,32 +9,15 @@
 </head>
 <body>
 
-  <div class = 'kategorier'>
-    <div class = 'introduksjon'>
+  <nav class = 'kategorier'>
       <button id = 'introduksjonKnapp' onclick = "viseInnhold('introduksjon')">Introduksjon</button>
-      <p id = 'introduksjon'> Her vises introduksjonen
-      </p>
-    </div>
 
-    <div class = 'oversikt'>
       <button id = 'oversiktKnapp' onclick = "viseInnhold('oversikt')">Oversikt</button>
-      <p id = 'oversikt'> Her vises oversikten
-      </p>
-    </div>
 
-    <div class = 'detaljer'>
       <button id = 'detaljerKnapp' onclick = "viseInnhold('detaljer')">Detaljer</button>
-      <p id = 'detaljer'> Her vises detaljer
-      </p>
-    </div>
 
-    <div class = 'sammenligning'>
       <button id = 'sammenligningKnapp' onclick = "viseInnhold('sammenligning')">Sammenligning</button>
-      <p id = 'sammenligning'> Her vises sammenligning
-      </p>
-    </div>
-
-  </div>
+  </nav>
 
   <script src ='main.js'></script>
 
@@ -45,11 +28,11 @@
 </footer>
 
 <div id = 'noe'>
-      <p id = 'introduksjon'> Her vises introduksjonen</p>
-      <p id = 'oversikt'> Her vises oversikten</p>
-      <p id = 'detaljer'> Her vises detaljer </p>
-      <p id = 'sammenligning'> Her vises sammenligning</p>
-              
+      <p id = 'introduksjon' class="hidden"> Her vises introduksjonen</p>
+      <p id = 'oversikt' class="hidden"> Her vises oversikten</p>
+      <p id = 'detaljer' class="hidden"> Her vises detaljer </p>
+      <p id = 'sammenligning' class="hidden"> Her vises sammenligning</p>
+
 </div>
 
 </html>
