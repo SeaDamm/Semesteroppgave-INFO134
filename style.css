@@ -1,0 +1,18 @@
+
+.kategorier button{
+  background-color: #333;
+  color: #fff;
+  padding: 10px 15px
+  border: 13px;
+  padding: 10px;
+}
+
+.kategorier p {
+  display:none;
+}
+
+#mainFooter{
+  position: fixed;
+  bottom: 0;
+  width: 100%
+}

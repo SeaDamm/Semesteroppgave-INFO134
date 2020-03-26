@@ -1,60 +1,47 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>Folk</title>
-    <link rel="stylesheet" href="Folk.css">
-  </head>
-  <body>
-    <header>
-      <h1>Folk</h1>
-    </header>
-    <nav>
-      <ul>
-        <li>Menyelement1</li>
-        <li>Menyelement2</li>
-        <li>Menyelement3</li>
-      </ul>
-    </nav>
-    <section>
-      <h2>Seksjon 1</h2>
-      <article class="informasjon">
-        <p>Her kommer informasjon om produktet. Det kan inneholde feil.</p>
-        <a href="http://data.ssb.no/api/v0/dataset/104857?lang=no">Befolkning datasett</a> <br>
-        <a href="http://data.ssb.no/api/v0/dataset/100145?lang=no">Sysselsatte datasett</a> <br>
-        <a href="http://data.ssb.no/api/v0/dataset/85432?lang=no">Utdanning datasett</a>
-      </article>
-    </section>
-    <section>
-      <h2>Seksjon 2</h2>
-      <article class="informasjon">
-        <p>Her kommer informasjon om produktet. Det kan inneholde feil.</p>
-        <a href="http://data.ssb.no/api/v0/dataset/104857?lang=no">Befolkning datasett</a> <br>
-        <a href="http://data.ssb.no/api/v0/dataset/100145?lang=no">Sysselsatte datasett</a> <br>
-        <a href="http://data.ssb.no/api/v0/dataset/85432?lang=no">Utdanning datasett</a>
-      </article>
-    </section>
-    <section>
-      <h2>Seksjon 3 </h2>
-      <article class="informasjon">
-        <p>Her kommer informasjon om produktet. Det kan inneholde feil.</p>
-        <a href="http://data.ssb.no/api/v0/dataset/104857?lang=no">Befolkning datasett</a> <br>
-        <a href="http://data.ssb.no/api/v0/dataset/100145?lang=no">Sysselsatte datasett</a> <br>
-        <a href="http://data.ssb.no/api/v0/dataset/85432?lang=no">Utdanning datasett</a>
-      </article>
-    </section>
-    <section>
-      <h2>Seksjon 4</h2>
-      <article class="informasjon">
-        <p>Her kommer informasjon om produktet. Det kan inneholde feil.</p>
-        <a href="http://data.ssb.no/api/v0/dataset/104857?lang=no">Befolkning datasett</a> <br>
-        <a href="http://data.ssb.no/api/v0/dataset/100145?lang=no">Sysselsatte datasett</a> <br>
-        <a href="http://data.ssb.no/api/v0/dataset/85432?lang=no">Utdanning datasett</a>
-    </section>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Navigasjon og bunntekst</title>
+  <link rel="stylesheet" type = 'text/css' href="style.css">
+</head>
+<body>
 
-  </body>
+  <div class = 'kategorier'>
+    <div class = 'introduksjon'>
+      <button id = 'introduksjonKnapp' onclick = "viseInnhold('introduksjon')">Introduksjon</button>
+      <p id = 'introduksjon'> Her vises introduksjonen
+      </p>
+    </div>
 
-  <footer style="background-color: lightgrey">
-    <p>Footer: Dette er en oppgavebesvarelse i emnet INFO134</p>
-  </footer>
+    <div class = 'oversikt'>
+      <button id = 'oversiktKnapp' onclick = "viseInnhold('oversikt')">Oversikt</button>
+      <p id = 'oversikt'> Her vises oversikten
+      </p>
+    </div>
+
+    <div class = 'detaljer'>
+      <button id = 'detaljerKnapp' onclick = "viseInnhold('detaljer')">Detaljer</button>
+      <p id = 'detaljer'> Her vises detaljer
+      </p>
+    </div>
+
+    <div class = 'sammenligning'>
+      <button id = 'sammenligningKnapp' onclick = "viseInnhold('sammenligning')">Sammenligning</button>
+      <p id = 'sammenligning'> Her vises sammenligning
+      </p>
+    </div>
+
+  </div>
+
+  <script src ='main.js'></script>
+
+</body>
+
+<footer id = 'mainFooter'>
+  <p>Denne nettsiden er en oppgavebesvarelse i emnet INFO134</p>
+</footer>
+
 </html>
