@@ -1,4 +1,4 @@
-xhrLoadings = {}
+xhrLoadings = {} // Is used in Data.onload to keep track of all datasets that are loading
 
 load = function(callback, obj) {
     obj.onload(0)
@@ -7,7 +7,6 @@ load = function(callback, obj) {
 
     xhr.onreadystatechange = function(){
         if (xhr.readyState === 4 && xhr.status === 200) {
-            console.log("Did it")
             response = JSON.parse(xhr.responseText);
             if(callback) {
               callback(response, obj)
@@ -117,8 +116,8 @@ load(getData, utdanning_obj)
 }
 
 
-/* Kanskje unnødvendig. for å sjekke om datasettene har nøyaktig samme kommuner
-function checkEqual(obj1, obj2) {
+
+function checkEqual(obj1, obj2) { // Checks if two datasets have the same municipalities (???)
   names1 = obj1.getNames()
   names2 = obj2.getNames()
 
@@ -128,4 +127,3 @@ function checkEqual(obj1, obj2) {
     }
   }
 }
-*/
