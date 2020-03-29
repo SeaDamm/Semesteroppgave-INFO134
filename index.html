@@ -7,7 +7,7 @@
 
   <script type="text/javascript" src="main.js"></script>
   <script type="text/javascript" src="XML.js"></script>
-  </script>
+  <script type="text/javascript" src="write.js"></script>
   <title>Folk</title>
   <link rel="stylesheet" type = 'text/css' href="style.css">
 </head>
@@ -34,7 +34,7 @@
         </section>
 
         <section id = 'oversikt' class="hidden">
-          <p onload="getNames(befolkning_obj)"></p>
+          <p id = "oversikt" onload="writeList(befolkning_obj)"></p>
         </section>
 
         <section id = 'detaljer' class="hidden">
