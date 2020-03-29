@@ -37,6 +37,7 @@ function Data(url) {
         result.push(kommune)
       }
     }
+    console.log(result.sort())
     return result.sort()
   }
 
@@ -74,6 +75,7 @@ function allLoaded() { // Checks if all datasets have finished loading
   for(var load in xhrLoadings) {
     if(xhrLoadings[load] != 1) {
       // Is still loading
+      disableButtons(true)
       if(loadText) {
         loadText.style.display = "inline"
       }
@@ -81,11 +83,24 @@ function allLoaded() { // Checks if all datasets have finished loading
     }
   }
   // Has finished loading
+  var main = document.getElementsByTagName("main")[0]
+  if(main) {
+    main.className = "visible"
+  }
+
+  disableButtons(false)
+
   if(loadText) {
     loadText.style.display = "none"
   }
 }
 
+function disableButtons(bool) {
+  var buttons = document.getElementsByTagName("button")
+  for(var i in buttons) {
+    buttons[i].disabled = bool
+  }
+}
 
 function writeList(data, elemName) {
   listElement = document.getElementById(elemName)

@@ -16,7 +16,7 @@
   <nav class = 'kategorier'>
       <button id = 'introduksjonKnapp' onclick = "viseInnhold('introduksjon')">Introduksjon</button>
 
-      <button id = 'oversiktKnapp' onclick = "viseInnhold('oversikt')">Oversikt</button>
+      <button id = 'oversiktKnapp' onclick ="viseInnhold('oversikt')">Oversikt</button>
 
       <button id = 'detaljerKnapp' onclick = "viseInnhold('detaljer')">Detaljer</button>
 
@@ -25,7 +25,7 @@
 
   <script src ='main.js'></script>
 
-  <main id = 'noe'>
+  <main class="hidden">
         <section id = 'introduksjon' class="hidden">
           <p>Her kommer informasjon om produktet. Det kan inneholde feil.</p>
           <a href="http://data.ssb.no/api/v0/dataset/104857?lang=no">Befolkning datasett</a> <br>
@@ -34,7 +34,7 @@
         </section>
 
         <section id = 'oversikt' class="hidden">
-
+          <p onload="getNames(befolkning_obj)"></p>
         </section>
 
         <section id = 'detaljer' class="hidden">
