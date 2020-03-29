@@ -102,16 +102,7 @@ function disableButtons(bool) {
   }
 }
 
-function writeList(data, elemName) {
-  listElement = document.getElementById(elemName)
-  listElement.innerHTML = "<ul><li>"+data.join("</li><li>")+"</li></ul>"
-}
 
-function writeInfo(data, elemName) {
-  listElement = document.getElementById(elemName)
-  listElement.innerHTML = data.name
-  return data.data
-}
 
 befolkning_url = "http://wildboy.uib.no/~tpe056/folk/104857.json"
 sysselsatte_url = "http://wildboy.uib.no/~tpe056/folk/100145.json"
@@ -128,17 +119,4 @@ window.onload = function(){
 load(getData, befolkning_obj)
 load(getData, sysselsatte_obj)
 load(getData, utdanning_obj)
-}
-
-
-
-function checkEqual(obj1, obj2) { // Checks if two datasets have the same municipalities (???)
-  names1 = obj1.getNames()
-  names2 = obj2.getNames()
-
-  for (var i = 0; i < names1.length; i++) {
-    if(names1[i] != names2[i]) {
-      console.log(names1[i],"!=",names2[i])
-    }
-  }
 }
