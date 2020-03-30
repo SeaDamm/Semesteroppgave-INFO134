@@ -9,13 +9,33 @@ function writeList(obj) {
 }
 */
 
+/*
 function writeList(obj) {
   var element = document.getElementById("oversikt")
-  var paragraf = document.createElement("p")
   for (kommune of obj.getNames()) {
-    document.write(kommune + "<br>");
+    var paragraf = document.createElement("p")
+    element.innerHTML=kommune;
   }
 }
+*/
+
+// Fra w3schools
+function writeList(obj) {
+  for (kommune of obj.getNames()){
+    var paragraph = document.createElement("p");
+    var node = document.createTextNode(kommune);
+    paragraph.appendChild(node);
+    var element = document.getElementById("oversikt");
+    element.appendChild(paragraph);
+ }
+}
+
+
+
+
+
+
+
 
 
 
