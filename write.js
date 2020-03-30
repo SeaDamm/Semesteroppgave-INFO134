@@ -1,25 +1,6 @@
-//Functions
-
-//Får ut navn men ikke bra
-/*
-function writeList(obj) {
-  for (kommune in obj.getNames()) {
-    document.getElementById("oversikt").innerHTML = obj.getNames();
-  }
-}
-*/
-
-/*
-function writeList(obj) {
-  var element = document.getElementById("oversikt")
-  for (kommune of obj.getNames()) {
-    var paragraf = document.createElement("p")
-    element.innerHTML=kommune;
-  }
-}
-*/
 
 // Fra w3schools
+
 function writeList(obj) {
   for (kommune of obj.getNames()){
     var paragraph = document.createElement("p");
