@@ -11,22 +11,26 @@
   <title>Folk</title>
   <link rel="stylesheet" type = 'text/css' href="style.css">
 </head>
-<body>
+<body onload="viseInnhold('introduksjon'); loadAllData()">
 
   <nav class = 'kategorier'>
-      <button id = 'introduksjonKnapp' onclick = "viseInnhold('introduksjon')">Introduksjon</button>
+      <button id = 'introduksjonKnapp' class = "dataButton" onclick = "viseInnhold('introduksjon')">Introduksjon</button>
 
-      <button id = 'oversiktKnapp' onclick ="viseInnhold('oversikt')">Oversikt</button>
+      <button id = 'oversiktKnapp' class = "dataButton" onclick ="viseInnhold('oversikt');writeOverview(befolkning_obj);">Oversikt</button>
 
-      <button id = 'detaljerKnapp' onclick = "viseInnhold('detaljer')">Detaljer</button>
+      <button id = 'detaljerKnapp' class = "dataButton" onclick = "viseInnhold('detaljer')">Detaljer</button>
 
-      <button id = 'sammenligningKnapp' onclick = "viseInnhold('sammenligning')">Sammenligning</button>
+      <button id = 'sammenligningKnapp' class = "dataButton" onclick = "viseInnhold('sammenligning')">Sammenligning</button>
   </nav>
 
   <script src ='main.js'></script>
 
-  <main class="hidden">
-        <section id = 'introduksjon' class="hidden">
+  <div id="loading">
+    <h2>LOADING</h2>
+  </div>
+
+  <main class="visible">
+        <section id = 'introduksjon' class="visible">
           <p>Her kommer informasjon om produktet. Det kan inneholde feil.</p>
           <a href="http://data.ssb.no/api/v0/dataset/104857?lang=no">Befolkning datasett</a> <br>
           <a href="http://data.ssb.no/api/v0/dataset/100145?lang=no">Sysselsatte datasett</a> <br>

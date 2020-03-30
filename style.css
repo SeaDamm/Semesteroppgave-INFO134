@@ -18,6 +18,10 @@ h2 {
   border: 13px;
   padding: 10px;
 }
+.kategorier .disabled {
+  background-color: gray;
+}
+
 
 .hidden {
   display: none;
@@ -26,8 +30,14 @@ h2 {
   display: block;
 }
 
+
+
 #mainFooter{
   position: fixed;
   bottom: 0;
   width: 100%
+}
+
+footer {
+  background-color: lightgray;
 }

@@ -69,6 +69,12 @@ function Data(url) {
   }
 }
 
+function loadAllData(){
+load(getData, befolkning_obj)
+load(getData, sysselsatte_obj)
+load(getData, utdanning_obj)
+}
+
 function allLoaded() { // Checks if all datasets have finished loading
   console.log(xhrLoadings)
   loadText = document.getElementById("loading")
@@ -96,8 +102,14 @@ function allLoaded() { // Checks if all datasets have finished loading
 }
 
 function disableButtons(bool) {
-  var buttons = document.getElementsByTagName("button")
-  for(var i in buttons) {
+  var buttons = document.getElementsByClassName("dataButton")
+  for(var i = 0; i < buttons.length; i++) {
+    console.log("BUTTON: ", buttons[i])
+    if(bool) {
+      buttons[i].classList.add("disabled")
+    } else {
+      buttons[i].classList.remove("disabled")
+    }
     buttons[i].disabled = bool
   }
 }
@@ -112,11 +124,3 @@ utdanning_url = "http://wildboy.uib.no/~tpe056/folk/85432.json"
 befolkning_obj = new Data(befolkning_url)
 sysselsatte_obj = new Data(sysselsatte_url)
 utdanning_obj = new Data(utdanning_url)
-
-
-
-window.onload = function(){
-load(getData, befolkning_obj)
-load(getData, sysselsatte_obj)
-load(getData, utdanning_obj)
-}
