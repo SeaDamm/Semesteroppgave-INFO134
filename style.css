@@ -4,13 +4,14 @@ h1 {
   color: #3c3c3c;
 }
 
+/* 'LOADING' text display styling*/
 h2 {
   font-family: sans-serif;
   font: Helvetica;
   color: #3c3c3c;
 }
 
-
+/* Styling of the category buttons (navigation) */
 .kategorier button {
   background-color: #333;
   color: #fff;
@@ -18,11 +19,13 @@ h2 {
   border: 13px;
   padding: 10px;
 }
+
+/* */
 .kategorier .disabled {
   background-color: gray;
 }
 
-
+/* Styling to hide/show the content of the chosen category */
 .hidden {
   display: none;
 }
@@ -31,7 +34,7 @@ h2 {
 }
 
 
-
+/* Footer styling */
 #mainFooter{
   position: fixed;
   bottom: 0;

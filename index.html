@@ -13,12 +13,13 @@
 </head>
 <body onload="viseInnhold('introduksjon'); loadAllData()">
 
+<!-- Buttons for each category. Onclick function shows the content of the category chosen by the user -->
   <nav class = 'kategorier'>
       <button id = 'introduksjonKnapp' class = "dataButton" onclick = "viseInnhold('introduksjon')">Introduksjon</button>
 
       <button id = 'oversiktKnapp' class = "dataButton" onclick ="viseInnhold('oversikt');writeOverview(befolkning_obj);">Oversikt</button>
 
-      <button id = 'detaljerKnapp' class = "dataButton" onclick = "viseInnhold('detaljer')">Detaljer</button>
+      <button id = 'detaljerKnapp' class = "dataButton" onclick = "viseInnhold('detaljer'); writeDetails();">Detaljer</button>
 
       <button id = 'sammenligningKnapp' class = "dataButton" onclick = "viseInnhold('sammenligning')">Sammenligning</button>
   </nav>
@@ -43,6 +44,12 @@
 
         <section id = 'detaljer' class="hidden">
 
+          <div id="kommunedetaljer">
+            <h1 id=header>HOIH</h1>
+            <p id="kommunenr"></p>
+            <p id="befolkningnr"></p>
+            <p id="sysselstat"></p>
+          </div>
         </section>
 
         <section id = 'sammenligning' class="hidden">
