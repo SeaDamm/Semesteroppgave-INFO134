@@ -19,7 +19,7 @@
 
       <button id = 'oversiktKnapp' class = "dataButton" onclick ="viseInnhold('oversikt');writeOverview(befolkning_obj);">Oversikt</button>
 
-      <button id = 'detaljerKnapp' class = "dataButton" onclick = "viseInnhold('detaljer'); writeDetails();">Detaljer</button>
+      <button id = 'detaljerKnapp' class = "dataButton" onclick = "viseInnhold('detaljer'); writeDetails(befolkning_obj,sysselsatte_obj,utdanning_obj, '0101');">Detaljer</button>
 
       <button id = 'sammenligningKnapp' class = "dataButton" onclick = "viseInnhold('sammenligning')">Sammenligning</button>
   </nav>
@@ -38,7 +38,7 @@
           <a href="http://data.ssb.no/api/v0/dataset/85432?lang=no">Utdanning datasett</a>
         </section>
 
-        <section id = 'oversikt' class="hidden" onload="writeList(befolkning_obj)">
+        <section id = 'oversikt' class="hidden" onload="writeOverview(befolkning_obj)">
 
         </section>
 

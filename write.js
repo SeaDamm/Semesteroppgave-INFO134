@@ -1,18 +1,26 @@
 // writes new line to a given element and automatically adds line break
-function newLine(element, text, br = 1) {
+function newLine(element, text, br = true) {
   element.innerHTML += text
   if(br) {
     element.innerHTML += "<br>"
   }
 }
 
-// Finds last index of array. i is last index of array
+// Finds last index of array. i will count as negative index to the array.
 function lastIndex(arr, i = 1) {
   return arr[arr.length - i]
 }
 
-function toArray(obj) { // Converts Object to array
+// Converts Object to array
+function toArray(obj) {
   return Object.keys(obj);
+}
+
+// Calculates population at given last year. year 1 = 2018, 2 = 2017, etc.
+function calculatePopulation(year, infoObj) {
+  var objArray = toArray(infoObj)
+  var result = infoObj[lastIndex(objArray, year)]
+  return result
 }
 
 
@@ -27,30 +35,19 @@ function writeOverview(obj) {
 
     newLine(paragraph, "Kommunenummer: " + info.kommunenummer)
 
-// Total population for the dataset's last year
-    var mennArray = toArray(info.Menn)
-    var kvinnerArray = toArray(info.Kvinner)
+    // Total population for the dataset's last year
+    var befolkningSum = calculatePopulation(1, info.Menn) +
+    calculatePopulation(1, info.Kvinner)
 
-    function beregnBefolkning(year) {
-      var result = info.Menn[lastIndex(mennArray, year)]
-      result += info.Kvinner[lastIndex(kvinnerArray, year)]
-      return result
-    }
-
-    var befolkningSum = beregnBefolkning(1)
-
-    newLine(
-      paragraph,
-      "<h3>Total befolkning (" + lastIndex(mennArray) + ")</h3>",
-      0
-    )
+    newLine(paragraph,"<h3>Total befolkning (" + lastIndex(toArray(info.Menn)) + ")</h3>",false)
     newLine(paragraph, "Befolkningstall: " + befolkningSum)
 
     // increment in population
-    var befolkningSumFjor = beregnBefolkning(2)
-    var vekstProsent = (Math.round((befolkningSum / befolkningSumFjor) * 1000) - 1000) / 10
-    newLine(paragraph, "Vekst siden i fjor (%): " + vekstProsent)
+    var befolkningSumFjor = calculatePopulation(2, info.Menn) +
+    calculatePopulation(2, info.Kvinner);
 
+    var vekstProsent = (Math.round((befolkningSum / befolkningSumFjor) * 1000) - 1000) / 10;
+    newLine(paragraph, "Vekst siden i fjor (%): " + vekstProsent);
 
     list.appendChild(paragraph);
  }
@@ -62,13 +59,10 @@ function writeOverview(obj) {
 
 
 
-
-
-
-
 function writeDetails(befolkObj, sysselObj, utdanningObj, input) {
   var detailsElem = document.getElementById("kommunedetaljer").children
   var elements = {} // dictionary for all children of "kommunedetaljer"
+
   for(var element in detailsElem) {
     elements[detailsElem[element].id] = detailsElem[element]
   }
@@ -77,8 +71,10 @@ function writeDetails(befolkObj, sysselObj, utdanningObj, input) {
   var sysselsatte = sysselObj.data.elementer;
   var utdanning = utdanningObj.data.elementer;
 
+  befolkningInfo = undefined
+
   for(var kommune in befolkning) {
-    if(kommuner[kommune].kommunenummer == input) {
+    if(befolkning[kommune].kommunenummer == input) {
       befolkningInfo = befolkning[kommune]
       sysselsatteInfo = sysselsatte[kommune]
       utdanningInfo = utdanning[kommune]
@@ -88,9 +84,14 @@ function writeDetails(befolkObj, sysselObj, utdanningObj, input) {
   }
 
   if(befolkningInfo) {
+
     elements.header.innerHTML = kommuneNavn
-    elements.kommunenr.innerHTML = befolkningInfo.kommunenummer
-    elements.befolkningnr.innerHTML = befolkningInfo.
+    elements.kommunenr.innerHTML = "Kommunenummer: " + befolkningInfo.kommunenummer
+
+    var befolkningSum = calculatePopulation(1, befolkningInfo.Menn) +
+    calculatePopulation(1, befolkningInfo.Kvinner);
+
+    elements.befolkningnr.innerHTML = "Befolkningsnummer i år: " + befolkningSum
   } else {
     elements.header.innerHTML = "Vi fant ingen kommuner med kommunenummer " + input
   }
