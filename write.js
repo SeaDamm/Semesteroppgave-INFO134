@@ -86,12 +86,50 @@ function writeDetails(befolkObj, sysselObj, utdanningObj, input) {
   if(befolkningInfo) {
 
     elements.header.innerHTML = kommuneNavn
+
     elements.kommunenr.innerHTML = "Kommunenummer: " + befolkningInfo.kommunenummer
 
-    var befolkningSum = calculatePopulation(1, befolkningInfo.Menn) +
+    var befolkningMenn = befolkningInfo.Menn
+    var befolkningSum = calculatePopulation(1, befolkningMenn) +
     calculatePopulation(1, befolkningInfo.Kvinner);
+    elements.befolkningnr.innerHTML = "Befolkningsnummer i " + lastIndex(toArray(befolkningMenn)) + ": " + befolkningSum
 
-    elements.befolkningnr.innerHTML = "Befolkningsnummer i år: " + befolkningSum
+
+    var sysselBegge = toArray(sysselsatteInfo["Begge kjønn"]).sort()
+    sysselBegge = lastIndex(sysselBegge)
+
+    elements.sysselstat.innerHTML = "Sysselsatte i " + sysselBegge + ": " +
+    sysselsatteInfo["Begge kjønn"][sysselBegge];
+
+    function getUtdanningInfo(utdanningList, gender, year = 1) {
+      switch (gender) {
+        case "male":
+          var resultIndex = lastIndex(toArray(utdanningList.Menn))
+          var result = utdanningList.Menn[resultIndex]
+          break;
+        case "female":
+          var resultIndex = lastIndex(toArray(utdanningList.Kvinner))
+          var result = utdanningList.Kvinner[resultIndex]
+          break;
+        case "both":
+          var resultIndex = lastIndex(toArray(utdanningList.Menn))
+          var result = utdanningList.Menn[resultIndex]
+          resultIndex = lastIndex(toArray(utdanningList.Kvinner))
+          result += utdanningList.Kvinner[resultIndex]
+          break;
+      }
+      console.log(result)
+      return result
+    }
+
+    utdanningAar = lastIndex(toArray(utdanningInfo["11"].Menn))
+    utdanningSum = getUtdanningInfo(utdanningInfo["11"], "both") +
+    getUtdanningInfo(utdanningInfo["03a"], "both") +
+    getUtdanningInfo(utdanningInfo["04a"], "both")
+
+    elements.videreutdanning.innerHTML =
+    "Antall med høyere utdanning i " + utdanningAar + " (Universitets-, høgskole- og fagskolenivå): " + utdanningSum
+
   } else {
     elements.header.innerHTML = "Vi fant ingen kommuner med kommunenummer " + input
   }
