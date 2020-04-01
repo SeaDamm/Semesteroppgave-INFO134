@@ -24,6 +24,9 @@ function calculatePopulation(year, infoObj) {
 }
 
 
+
+
+
 function writeOverview(obj) {
 
   var list = document.createElement("ul");
@@ -59,8 +62,11 @@ function writeOverview(obj) {
 
 
 
-function writeDetails(befolkObj, sysselObj, utdanningObj, input) {
-  var detailsElem = document.getElementById("kommunedetaljer").children
+function writeDetails(befolkObj, sysselObj, utdanningObj, input)
+{
+  console.log(input)
+  var details = document.getElementById("kommunedetaljer")
+  var detailsElem = details.children
   var elements = {} // dictionary for all children of "kommunedetaljer"
 
   for(var element in detailsElem) {
@@ -84,22 +90,39 @@ function writeDetails(befolkObj, sysselObj, utdanningObj, input) {
   }
 
   if(befolkningInfo) {
+    console.log("Making it visible")
 
+    details.className = "visible"
+    // municipality name
     elements.header.innerHTML = kommuneNavn
 
+    // municipality number
     elements.kommunenr.innerHTML = "Kommunenummer: " + befolkningInfo.kommunenummer
 
+    // Writing total population
     var befolkningMenn = befolkningInfo.Menn
     var befolkningSum = calculatePopulation(1, befolkningMenn) +
     calculatePopulation(1, befolkningInfo.Kvinner);
-    elements.befolkningnr.innerHTML = "Befolkningsnummer i " + lastIndex(toArray(befolkningMenn)) + ": " + befolkningSum
 
+    elements.befolkningnr.innerHTML =
+    "Befolkningsnummer i " + lastIndex(toArray(befolkningMenn)) +
+    ": " + befolkningSum
 
+    // population in employment
     var sysselBegge = toArray(sysselsatteInfo["Begge kjønn"]).sort()
     sysselBegge = lastIndex(sysselBegge)
+    var sysselProsent = sysselsatteInfo["Begge kjønn"][sysselBegge]
 
-    elements.sysselstat.innerHTML = "Sysselsatte i " + sysselBegge + ": " +
-    sysselsatteInfo["Begge kjønn"][sysselBegge];
+    newLine(
+      elements.sysselstat,
+      "Sysselsatte i " + sysselBegge + ": " +
+      Math.round(befolkningSum*(sysselProsent/100))
+    )
+    newLine(
+      elements.sysselstat,
+      "Sysselsatte målt i prosent: " + sysselProsent + "%"
+
+    )
 
     function getUtdanningInfo(utdanningList, gender, year = 1) {
       switch (gender) {
@@ -127,13 +150,17 @@ function writeDetails(befolkObj, sysselObj, utdanningObj, input) {
     getUtdanningInfo(utdanningInfo["03a"], "both") +
     getUtdanningInfo(utdanningInfo["04a"], "both")
 
-    elements.videreutdanning.innerHTML =
-    "Antall med høyere utdanning i " + utdanningAar + " (Universitets-, høgskole- og fagskolenivå): " + utdanningSum
+    newLine(
+      elements.videreutdanning,
+      "Antall med høyere utdanning i " + utdanningAar + " (Universitets-, høgskole- og fagskolenivå): " +
+      Math.round(befolkningSum*(utdanningSum/100))
+    )
 
+    newLine(elements.videreutdanning, "Antall med høyere utdanning målt i prosent: " + utdanningSum + "%")
   } else {
-    elements.header.innerHTML = "Vi fant ingen kommuner med kommunenummer " + input
+    document.getElementById("errortext").innerHTML = "Vi fant ingen kommuner med kommunenummer " + input
+    details.className = "hidden"
   }
-
 }
 
 
@@ -142,21 +169,24 @@ function writeDetails(befolkObj, sysselObj, utdanningObj, input) {
 /*
 Som i “detaljer” skal dere i utgangspunktet ikke vise noe informasjon her, men brukeren skal kunne skrive inn to gyldige kommunenummere. Når brukeren skriver inn dette, så skal dere vise utdanningsdata for det siste året (som datasettet dekker) innen kjønnskategoriene “Menn” og “Kvinner” i begge kommunene, for alle utdanningskategorier. For hver kjønnskategori og hver utdanningskategori skal dere indikere hvilken av kommunene som har høyest andel utdannede. Dere skal også utrope en “vinner”. Vinneren er kommunen som har høyest andel utdannede i flest utdanningskategorier.*/
 
-function checkEqual(obj, input1, input2) {
+
+function writeComparison(obj, input1, input2) {
   // Input, kommunenummere
   var kommuner = obj.data.elementer
+
   for(var kommune in kommuner) {
+    // Checks input1
     if(kommuner[kommune].kommunenummer == input1) {
       var kommune1 = kommuner[kommune]
     }
-    if(kommuner[kommune].kommunenummer == inpu2) {
+    // Checks input2
+    if(kommuner[kommune].kommunenummer == input2) {
       var kommune2 = kommuner[kommune]
     }
+
+    // Checks if both inputs have a municipality
     if(kommune1 && kommune2) {
       break;
     }
   }
-
-
-
 }
