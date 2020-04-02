@@ -1,10 +1,11 @@
+/* Details section header */
 h1 {
   font-family: sans-serif;
   font: Helvetica;
   color: #3c3c3c;
 }
 
-/* 'LOADING' text display styling*/
+/* 'LOADING' text display styling */
 h2 {
   font-family: sans-serif;
   font: Helvetica;
@@ -20,7 +21,7 @@ h2 {
   padding: 10px;
 }
 
-/* */
+/* Navigation buttons when disabled */
 .kategorier .disabled {
   background-color: gray;
 }
@@ -33,14 +34,19 @@ h2 {
   display: block;
 }
 
+/* Styling for the search bars in details section and compare section */
+.userinput button {
+  margin: 10px;
+}
+
+.userinput label {
+  margin: 10px;
+}
 
 /* Footer styling */
-#mainFooter{
+footer {
   position: fixed;
   bottom: 0;
   width: 100%
-}
-
-footer {
   background-color: lightgray;
 }

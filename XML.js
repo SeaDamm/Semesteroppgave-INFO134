@@ -1,25 +1,21 @@
 xhrLoadings = {} // Is used in Data.onload to keep track of all datasets that are loading
 
-load = function(callback, obj) {
-    obj.onload(0)
+load = function(obj, callback) {
+    obj.status(0)
     let xhr = new XMLHttpRequest();
     xhr.open("GET", obj.url);
 
     xhr.onreadystatechange = function(){
         if (xhr.readyState === 4 && xhr.status === 200) {
             response = JSON.parse(xhr.responseText);
+            obj.data = response
             if(callback) {
-              callback(response, obj)
+              callback(response)
             }
-            obj.onload(1)
+            obj.status(1)
         }
     };
     xhr.send()
-}
-
-getData = function(response, obj) { // Sets data_obj.data as the xhr response.
-// Don't call this function directly! Use "load(getData, data_obj)"
-  obj.data = response
 }
 
 
@@ -63,16 +59,16 @@ function Data(url) {
     }
   }
 
-  this.onload = function(loaded) {
+  this.status = function(loaded) {
     xhrLoadings[this.url] = loaded
     allLoaded()
   }
 }
 
 function loadAllData(){
-load(getData, befolkning_obj)
-load(getData, sysselsatte_obj)
-load(getData, utdanning_obj)
+load(befolkning_obj)
+load(sysselsatte_obj)
+load(utdanning_obj)
 }
 
 function allLoaded() { // Checks if all datasets have finished loading
@@ -124,3 +120,9 @@ utdanning_url = "http://wildboy.uib.no/~tpe056/folk/85432.json"
 befolkning_obj = new Data(befolkning_url)
 sysselsatte_obj = new Data(sysselsatte_url)
 utdanning_obj = new Data(utdanning_url)
+
+dataset_obj = {
+  "befolkning":befolkning_obj,
+  "sysselsatte":sysselsatte_obj,
+  "utdanning":utdanning_obj
+}

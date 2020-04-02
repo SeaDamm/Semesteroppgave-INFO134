@@ -17,7 +17,7 @@
   <nav class = 'kategorier'>
       <button id = 'introduksjonKnapp' class = "dataButton" onclick = "viseInnhold('introduksjon')">Introduksjon</button>
 
-      <button id = 'oversiktKnapp' class = "dataButton" onclick ="viseInnhold('oversikt');writeOverview(befolkning_obj);">Oversikt</button>
+      <button id = 'oversiktKnapp' class = "dataButton" onclick ="viseInnhold('oversikt');">Oversikt</button>
 
       <button id = 'detaljerKnapp' class = "dataButton" onclick = "viseInnhold('detaljer');">Detaljer</button>
 
@@ -26,10 +26,13 @@
 
   <script src ='main.js'></script>
 
+<!-- For when the information/data is loading -->
   <div id="loading">
     <h2>LOADING</h2>
   </div>
 
+<!-- Introduction part classified visible. Links are the information that will be shown -->
+<!-- Class is visible as the introduction should be visible from the start -->
   <main class="visible">
         <section id = 'introduksjon' class="visible">
           <p>Her kommer informasjon om produktet. Det kan inneholde feil.</p>
@@ -38,15 +41,18 @@
           <a href="http://data.ssb.no/api/v0/dataset/85432?lang=no">Utdanning datasett</a>
         </section>
 
-        <section id = 'oversikt' class="hidden" onload="writeOverview(befolkning_obj)">
+<!-- All content/information categories are classified hidden until button is pressed -->
+<!-- Overview section -->
+        <section id = 'oversikt' class="hidden" onload="writeOverview(dataset_obj['befolkning'])">
 
         </section>
 
+<!-- Details section, has a table -->
         <section id = 'detaljer' class="hidden">
           <div class="userinput">
             <label for="kommunenr">Skriv inn kommunenummer: </label>
             <input type="text" id="nrInput">
-            <button onclick="writeDetails(befolkning_obj,sysselsatte_obj,utdanning_obj, nrInput.value);">Søk</button>
+            <button id = 'søk_detaljer' onclick="writeDetails(dataset_obj, nrInput.value);">Søk</button>
           </div>
             <h3 id="errortext"></h3>
           <div id="kommunedetaljer" class="hidden">
@@ -55,9 +61,17 @@
             <p id="befolkningnr"></p>
             <p id="sysselstat"></p>
             <p id="videreutdanning"></p>
+            <br>
+            <table id="historisk_vekst">
+              <tr id="detalj_historisk_headers">
+                <td></td>
+              </tr>
+
+            </table>
           </div>
         </section>
 
+<!-- Compare section -->
         <section id = 'sammenligning' class="hidden">
           <div class="userinput">
             <label for="kommunenr1">Skriv inn første kommunenr: </label>
@@ -66,13 +80,14 @@
             <label for="kommunenr2">Skriv inn andre kommunenr: </label>
             <input type="text" id="nrInput2">
             <br>
-            <button onclick="writeComparison(obj)">Sammenlign</button>
+            <button onclick="writeComparison(dataset_obj, nrInput1.value, nrInput2.value)">Sammenlign</button>
 
 
         </section>
   </main>
 
-  <footer id = 'mainFooter'>
+<!-- Footer -->
+  <footer>
     <p>Denne nettsiden er en oppgavebesvarelse i emnet INFO134</p>
   </footer>
 
