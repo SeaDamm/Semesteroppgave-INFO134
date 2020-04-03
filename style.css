@@ -51,6 +51,29 @@ footer {
   background-color: lightgray;
 }
 
+table {
+  border: 1px solid black;
+  border-collapse: collapse;
+  font-family: sans-serif;
+  font: Helvetica;
+}
+
 td {
   text-align: center;
+  border: 1px solid black;
+  padding: 7px;
+}
+
+/* detalj_historisk_headers - headerne */
+tr > th {
+  background-color: lightskyblue;
+  border: 1px solid black;
+  text-align: left;
+}
+
+/* midlertidig, bare for synlighet/farge */
+@media only screen and (max-width: 600px) {
+  table {
+    background-color: dodgerblue;
+  }
 }
