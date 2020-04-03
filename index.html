@@ -34,6 +34,7 @@
 <!-- Introduction part classified visible. Links are the information that will be shown -->
 <!-- Class is visible as the introduction should be visible from the start -->
   <main class="visible">
+        <h3 id="errortext"></h3>
         <section id = 'introduksjon' class="visible">
           <p>Her kommer informasjon om produktet. Det kan inneholde feil.</p>
           <a href="http://data.ssb.no/api/v0/dataset/104857?lang=no">Befolkning datasett</a> <br>
@@ -54,7 +55,6 @@
             <input type="text" id="nrInput">
             <button id = 'søk_detaljer' onclick="writeDetails(dataset_obj, nrInput.value);">Søk</button>
           </div>
-            <h3 id="errortext"></h3>
           <div id="kommunedetaljer" class="hidden">
             <h1 id=header></h1>
             <p id="kommunenr"></p>
@@ -81,6 +81,28 @@
             <input type="text" id="nrInput2">
             <br>
             <button onclick="writeComparison(dataset_obj, nrInput1.value, nrInput2.value)">Sammenlign</button>
+          </div>
+          <div id="kommunesammenligning" class="hidden">
+            <h2 id="vinnertekst"></h2>
+            <div class="sammenlignkommune">
+              <h3></h3>
+              <ul>
+
+              </ul>
+            </div>
+            <div>
+
+              <ul id="sammenligntekst">
+
+              </ul>
+            </div>
+            <div class="sammenlignkommune">
+              <h3></h3>
+              <ul>
+
+              </ul>
+            </div>
+          </div>
         </section>
   </main>
 

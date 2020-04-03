@@ -50,3 +50,7 @@ footer {
   width: 100%
   background-color: lightgray;
 }
+
+td {
+  text-align: center;
+}
