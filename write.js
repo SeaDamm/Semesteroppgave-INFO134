@@ -69,7 +69,7 @@ function writeOverview(obj) {
 
 
 
-// Function that shows the details of a given municipality
+// Function that displays the details of a given municipality
 function writeDetails(dataObj, input)
 {
   // The HTML-element that contains all information about the municipality
@@ -299,7 +299,7 @@ function writeDetails(dataObj, input)
 /*
 Som i “detaljer” skal dere i utgangspunktet ikke vise noe informasjon her, men brukeren skal kunne skrive inn to gyldige kommunenummere. Når brukeren skriver inn dette, så skal dere vise utdanningsdata for det siste året (som datasettet dekker) innen kjønnskategoriene “Menn” og “Kvinner” i begge kommunene, for alle utdanningskategorier. For hver kjønnskategori og hver utdanningskategori skal dere indikere hvilken av kommunene som har høyest andel utdannede. Dere skal også utrope en “vinner”. Vinneren er kommunen som har høyest andel utdannede i flest utdanningskategorier.*/
 
-
+// Function that displays a comparison of two given municipalities
 function writeComparison(dataset_obj, input1, input2) {
   // Input, kommunenummere
   console.log("dataset", dataset_obj);
@@ -308,10 +308,16 @@ function writeComparison(dataset_obj, input1, input2) {
   // The HTML-element that contains all information about the municipality
   var compare = document.getElementsByClassName("sammenlignkommune")
   var compareElem = [compare[0].children, compare[1].children]
+  // Description text
   var compareText = document.getElementById("sammenligntekst")
 
+  // The whole dataset
   var kommuner = dataset_obj.utdanning.data.elementer
+
+  // Will contain all information the website is going to show to the user
   var listDict = [{},{}]
+
+  // The overall score of the municipalities as percentage (0 = municipality 2, 1 = municipality 1)
   var points = []
 
   // Finds municipality with the user input
@@ -333,9 +339,11 @@ function writeComparison(dataset_obj, input1, input2) {
     }
   }
 
+  // Display the information
   if(kommune1 && kommune2) {
     document.getElementById("kommunesammenligning").className = "visible"
 
+  // Contains everything from the two municipalities (HTML-element, dataset, name, etc.)
   var kommuneData = [
     {"compare":compare[0],"compareElem":compareElem[0],"kommune":kommune1,
     "listDict":listDict[0],"navn":kommune1Navn},
@@ -343,12 +351,13 @@ function writeComparison(dataset_obj, input1, input2) {
     "listDict":listDict[1],"navn":kommune2Navn},
   ]
 
-
+  // Removes everything in the given HTML-list
   function flushList(ul) {
     ul.innerHTML = "<ul></ul>"
     console.log("UL:",ul)
   }
 
+  // Adds a list element with text to the given HTML-list
   function writeListElement(text, ul) {
     var li = document.createElement("li")
     li.innerHTML = text
@@ -356,14 +365,9 @@ function writeComparison(dataset_obj, input1, input2) {
     ul.appendChild(li)
   }
 
-  function writeEducationList(kommune){
-    var list = kommune.compareElem[1]
-    console.log("kommune.compareElem[1]:",kommune.compareElem[1])
-
-    //console.log("log kommune", kommune)
-    //console.log("log kommuner", kommuner)
+  // Gives the municipality's listDict all education data
+  function makeEducationDict(kommune){
     var educationLevel = kommune.kommune
-    //console.log("educationLevel", educationLevel)
 
     for(var index in educationLevel){
     var category = educationLevel[index]
@@ -372,6 +376,7 @@ function writeComparison(dataset_obj, input1, input2) {
       }
 
       var utdanningNavn
+      // Returns education name equivalent to the code in the education dataset
       switch(index) {
         case "01":
           utdanningNavn = "grunnskolenivå"
@@ -403,28 +408,24 @@ function writeComparison(dataset_obj, input1, input2) {
 
       kommune.listDict[utdanningNavn] = [educationMen]
       kommune.listDict[utdanningNavn].push(educationWomen)
-      //writeListElement(educationMen, list)
-      //writeListElement(educationWomen, list)
-      console.log("Wrote data for", utdanningNavn)
-      //writeListElement(utdanningNavn, compareText)
      }
 
     }
-    /*console.log("compareElem[1]:", kommuneData[1].compareElem[1])
-    flushList(kommuneData[1].compareElem[1])
-    flushList(kommuneData[2].compareElem[1])
-*/
+
     flushList(kommuneData[0].compareElem[1])
     flushList(kommuneData[1].compareElem[1])
-    writeEducationList(kommuneData[0])
     flushList(compareText)
-    writeEducationList(kommuneData[1])
+    makeEducationDict(kommuneData[0])
+    makeEducationDict(kommuneData[1])
 
-console.log("KOMMUNENAVN:",kommuneData[0].navn,"kommuneData[0].compareElem[0]:", kommuneData[0].compareElem[0])
+
+  // Display everything on screen
+
+    // Municipality names
     kommuneData[0].compareElem[0].innerHTML = kommuneData[0].navn
     kommuneData[1].compareElem[0].innerHTML = kommuneData[1].navn
 
-    console.log("LISTDICT:",kommuneData[0].listDict)
+    // Append to the municipality list all education data
     for(var index in kommuneData[0].listDict) {
       var dict1 = kommuneData[0].listDict[index]
       var dict2 = kommuneData[1].listDict[index]
@@ -436,29 +437,39 @@ console.log("KOMMUNENAVN:",kommuneData[0].navn,"kommuneData[0].compareElem[0]:",
           var genderName = "menn"
         }
 
+        // Displays the description text
         writeListElement(index + " ("+genderName+")", compareText)
+
+        // If municipality 1 has a better score
         if(dict1[gender] > dict2[gender]) {
           writeListElement("!"+dict1[gender]+"!", kommuneData[0].compareElem[1])
           writeListElement(dict2[gender], kommuneData[1].compareElem[1])
 
           points.push(1)
+
+        // If municipality 2 has a better score
         } else if (dict2[gender] > dict1[gender]) {
           writeListElement(dict1[gender], kommuneData[0].compareElem[1])
           writeListElement("!"+dict2[gender]+"!", kommuneData[1].compareElem[1])
           points.push(0)
+
+        // If it's a tie
         } else {
           writeListElement(dict1[gender], kommuneData[0].compareElem[1])
           writeListElement(dict2[gender], kommuneData[1].compareElem[1])
         }
       }
     }
+
+    // Calculates the score (an average of all 1's and 0's in the points-array)
     var pointPercentage = 0
     for(var point in points) {
       pointPercentage += points[point]
     }
     pointPercentage /= points.length
-    console.log(pointPercentage)
 
+
+    // Displays the win text (if closer to 1 - municipality 1, if closer to 0 - municipality 2)
     var winText = document.getElementById("vinnertekst")
     if(pointPercentage > 0.5) {
       winText.innerHTML = kommuneData[0].navn + " er vinneren!"
@@ -469,6 +480,7 @@ console.log("KOMMUNENAVN:",kommuneData[0].navn,"kommuneData[0].compareElem[0]:",
     }
 
   } else {
+    // Display error text (wrong municipality number)
     document.getElementById("kommunesammenligning").className = "hidden"
     if(!kommune1) {
       document.getElementById("errortext").innerHTML =
@@ -479,5 +491,3 @@ console.log("KOMMUNENAVN:",kommuneData[0].navn,"kommuneData[0].compareElem[0]:",
     }
   }
 }
-
-   // Hente ut utdanningsdata fra siste året, menn og kvinner, alle kategorier
