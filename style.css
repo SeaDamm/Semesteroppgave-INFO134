@@ -34,14 +34,6 @@ h2 {
   display: block;
 }
 
-/* Styling for the search bars in details section and compare section */
-.userinput button {
-  margin: 10px;
-}
-
-.userinput label {
-  margin: 10px;
-}
 
 /* Footer styling */
 footer {
@@ -52,7 +44,6 @@ footer {
 }
 
 /* Table styling */
-
 .table {
   border: 0px solid black;
   border-collapse: collapse;
@@ -60,125 +51,96 @@ footer {
   font: Helvetica;
 
   display: flex;
-  flex-direction: column;
-
-  align-items: flex-start;
-
-}
-
-/* Table headers styling */
-
-.table-headers {
-  text-align: right;
-  display: flex;
   flex-direction: row;
-  justify-content: flex-end;
-
-
-  background-color: plum;
-
-}
-
-.table-rows {
-  display: flex;
-  flex-direction: column;
-
-
-  background-color: orange;
+  flex-wrap: wrap;
+  align-items: flex-start;
 }
 
 .table-row {
-
+  padding-bottom: 25px;
+  padding-left: 25px;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-content: flex-start;
-
-
 }
 
-.table-header-start {
-  width: 50px;
-  height: 50px;
-}
 
-.table-header {
-  height: 100px;
-  width: 121.1px;
-  border-top: black solid 1px;
-
-}
-
-/* årstall */
-.table-cell-start {
-  width: 50px;
-  height: 15px;
-  background-color: seagreen;
-    border-left: white solid 1px;
-
-}
-/* innhold */
+/* Table cells styling */
 .table-cell {
-    height: 15px;
-    width: 120px;
-  background-color: orange;
-
-  border-left: white solid 1px;
-  border-bottom: white solid 1px;
+  display: flex;
+  border-collapse: collapse;
 }
 
-
-/*
-
-
-td {
-  text-align: center;
+.table-cell-year {
+  padding: 5px;
   border: 1px solid black;
-  padding: 7px;
 }
 
-detalj_historisk_headers - headerne
-tr > th {
-  background-color: lightskyblue;
-  border: 1px solid black;
-  text-align: left;
+.table-cell-content {
+  padding: 5px;
+  padding-left: 25px;
+  vertical-align: middle;
 }
 
-midlertidig, bare for synlighet/farge
-*/
+/* Table header styling */
+.table-header {
+  width: 250px;
+  height: 60px;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #232323;
+  background-color: LightGray;
+}
+
+/* Styling for smaller screens */
 @media only screen and (max-width: 600px) {
   .table {
-    flex-direction: row;
-  }
-
-  .table-headers {
     flex-direction: column;
-  }
-
-  .table-rows {
-    flex-direction: row;
+    flex-wrap: nowrap;
   }
 
   .table-row {
-    flex-direction: column;
-  }
-
-
-  .table-header-start {
-    height: 15px;
-  }
-
-  .table-cell-start {
-    width:100px;
-    height: 15px;
-  }
-
-  .table-header {
-    height: 70px;
-    width: 150px;
+    padding-bottom: 30px;
+    flex-direction: row;
   }
 
   .table-cell {
-    height: 70px;
-    width: 100px;
+    padding: 0px 10px;
+    flex-direction: column
   }
+
+  .table-cell-content {
+    padding-left: 5px;
+  }
+}
+
+/* Styling sammenligning */
+
+.sammenlignkommune {
+  width: 100px;
+  float:left;
+}
+
+.sammenlignkommune h3{
+  text-align: center;
+}
+
+
+
+#sammenligntekst{
+  float:left;
+  padding-top: 40px;
+  text-align: center;
+}
+
+#sammenligntekst ul {
+  padding-left: 0px;
+}
+
+ul {
+    list-style-type: none;
 }

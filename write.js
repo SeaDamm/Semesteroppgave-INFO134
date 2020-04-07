@@ -122,6 +122,7 @@ function writeDetails(dataObj, input)
     // Employment in amount
     var sysselBegge = toArray(sysselsatteInfo["Begge kjønn"]).sort()
     sysselBegge = lastIndex(sysselBegge)
+    var sysselProsent = sysselsatteInfo["Begge kjønn"][sysselBegge]
     newLine(
       elements.sysselstat,
       "Sysselsatte i " + sysselBegge + ": " +
@@ -129,7 +130,7 @@ function writeDetails(dataObj, input)
       1
     )
     // Employment in percentage
-    var sysselProsent = sysselsatteInfo["Begge kjønn"][sysselBegge]
+
     newLine(
       elements.sysselstat,
       "Sysselsatte målt i prosent: " + sysselProsent + "%"
@@ -219,48 +220,51 @@ function writeDetails(dataObj, input)
       emptyHeader.className = "table-header"
       emptyHeader.innerHTML = "<br>"
       tableHeaders.appendChild(emptyHeader)
-*/
+*//*
       var emptyHeader = document.createElement("div")
       emptyHeader.className = "table-header-start"
       emptyHeader.innerHTML = "<br>"
       tableHeaders.appendChild(emptyHeader)
+      */
       for(var header in headers) {
-        var tableH = document.createElement("div")
-        tableH.className = "table-header"
-        tableH.innerHTML = headers[header]
-        tableHeaders.appendChild(tableH)
-      }
-      table.appendChild(tableHeaders)
-
-      var tableRows = document.createElement("div")
-      tableRows.className = "table-rows"
-
-      // Adding the columns in tableDict
-      var tableArray = toArray(tableDict).sort().reverse()
-      for(var index in tableArray) {
-        row = tableArray[index]
         var tableRow = document.createElement("div")
         tableRow.className = "table-row"
+        var tableHeader = document.createElement("div")
+        tableHeader.className = "table-header"
+        tableHeader.innerHTML = headers[header]
+        tableRow.appendChild(tableHeader)
 
-        // Adds the years first to the table
-        var rowStart = document.createElement("div")
-        rowStart.className = "table-cell-start"
-        rowStart.innerHTML = row
-        tableRow.appendChild(rowStart)
-
-        // Adds all the data for the given year
-        for(var i in tableDict[row]) {
+        // Adding the columns in tableDict
+        var tableArray = toArray(tableDict).sort().reverse()
+        for(var index in tableArray) {
+          row = tableArray[index]
           var tableCell = document.createElement("div")
           tableCell.className = "table-cell"
-          tableCell.innerHTML = tableDict[row][i]
-          tableRow.appendChild(tableCell)
-        }
 
-        tableRows.appendChild(tableRow)
+          // Adds the years first to the table
+          var tableCYear = document.createElement("div")
+          tableCYear.className = "table-cell-year"
+          tableCYear.innerHTML = row
+          tableCell.appendChild(tableCYear)
+
+          // Adds all the data for the given year
+
+          var tableCContent = document.createElement("div")
+          tableCContent.className = "table-cell-content"
+          var yearContent = tableDict[row][header]
+          if(yearContent) {
+          tableCContent.innerHTML = tableDict[row][header]
+          } else {
+            tableCContent.innerHTML = " - "
+          }
+          tableCell.appendChild(tableCContent)
+          tableRow.appendChild(tableCell)
+          }
+
+          table.appendChild(tableRow)
+        }
       }
 
-      table.appendChild(tableRows)
-    }
 
   // Adds all table data
     // population
@@ -313,10 +317,6 @@ function writeDetails(dataObj, input)
 }
 
 
-
-
-/*
-Som i “detaljer” skal dere i utgangspunktet ikke vise noe informasjon her, men brukeren skal kunne skrive inn to gyldige kommunenummere. Når brukeren skriver inn dette, så skal dere vise utdanningsdata for det siste året (som datasettet dekker) innen kjønnskategoriene “Menn” og “Kvinner” i begge kommunene, for alle utdanningskategorier. For hver kjønnskategori og hver utdanningskategori skal dere indikere hvilken av kommunene som har høyest andel utdannede. Dere skal også utrope en “vinner”. Vinneren er kommunen som har høyest andel utdannede i flest utdanningskategorier.*/
 
 // Function that displays a comparison of two given municipalities
 function writeComparison(dataset_obj, input1, input2) {
