@@ -1,7 +1,7 @@
 // writes new line to a given element and automatically adds line break (if br == true)
 // If replace == true, set the element.innerHTML as the text instead of appending it
 function newLine(element, text, replace = false, br = true) {
-  if(replace) {
+  if(!replace) {
     element.innerHTML += text
   } else {
     element.innerHTML = text
@@ -40,7 +40,7 @@ function writeOverview(obj) {
 
     var paragraph = document.createElement("li");
     // municipality name
-    newLine(paragraph, "<h2>" + kommune + "</h2>", 1)
+    newLine(paragraph, "<h2>" + kommune + "</h2>")
 
     // municipality number
     newLine(paragraph, "Kommunenummer: " + info.kommunenummer)
@@ -59,10 +59,10 @@ function writeOverview(obj) {
 
     var increment = (Math.round((befolkningSum / befolkningSumFjor) * 1000) - 1000) / 10;
     newLine(paragraph, "Vekst siden i fjor (%): " + increment);
-
     list.appendChild(paragraph);
  }
  var element = document.getElementById("oversikt");
+ element.innerHTML = ""
  element.appendChild(list);
 }
 
@@ -181,7 +181,8 @@ function writeDetails(dataObj, input)
 
     // Educational statistics the past years table
     var table = document.getElementById("historisk_vekst")
-    var tableHeaders = document.createElement("tr")
+    var tableHeaders = document.createElement("div")
+    tableHeaders.className = "table-headers"
     tableHeaders.id = ("detalj_historisk_headers")
 
     // Will contain all the table's headers
@@ -211,36 +212,54 @@ function writeDetails(dataObj, input)
     // Uses the variables tableHeadersList and tableDict to write the data
     // as a table
     function writeTable(headers, dict) {
+      table.innerHTML = ""
       // Adding the headers
-      var emptyHeader = document.createElement("th")
+      /*
+      var emptyHeader = document.createElement("div")
+      emptyHeader.className = "table-header"
+      emptyHeader.innerHTML = "<br>"
+      tableHeaders.appendChild(emptyHeader)
+*/
+      var emptyHeader = document.createElement("div")
+      emptyHeader.className = "table-header-start"
+      emptyHeader.innerHTML = "<br>"
       tableHeaders.appendChild(emptyHeader)
       for(var header in headers) {
-        var tableH = document.createElement("th")
+        var tableH = document.createElement("div")
+        tableH.className = "table-header"
         tableH.innerHTML = headers[header]
         tableHeaders.appendChild(tableH)
       }
       table.appendChild(tableHeaders)
 
+      var tableRows = document.createElement("div")
+      tableRows.className = "table-rows"
+
       // Adding the columns in tableDict
-      var tableArray = toArray(tableDict).sort()
+      var tableArray = toArray(tableDict).sort().reverse()
       for(var index in tableArray) {
         row = tableArray[index]
-        var tableRow = document.createElement("tr")
+        var tableRow = document.createElement("div")
+        tableRow.className = "table-row"
 
         // Adds the years first to the table
-        var rowStart = document.createElement("td")
+        var rowStart = document.createElement("div")
+        rowStart.className = "table-cell-start"
         rowStart.innerHTML = row
         tableRow.appendChild(rowStart)
 
         // Adds all the data for the given year
         for(var i in tableDict[row]) {
-          var tableCell = document.createElement("td")
+          var tableCell = document.createElement("div")
+          tableCell.className = "table-cell"
           tableCell.innerHTML = tableDict[row][i]
           tableRow.appendChild(tableCell)
         }
 
-        table.appendChild(tableRow)
+        tableRows.appendChild(tableRow)
       }
+
+      table.appendChild(tableRows)
     }
 
   // Adds all table data

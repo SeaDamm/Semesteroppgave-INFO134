@@ -16,7 +16,7 @@ h2 {
 .kategorier button {
   background-color: #333;
   color: #fff;
-  padding: 10px 15px
+  padding: 10px 15px;
   border: 13px;
   padding: 10px;
 }
@@ -47,16 +47,88 @@ h2 {
 footer {
   position: fixed;
   bottom: 0;
-  width: 100%
+  width: 100%;
   background-color: lightgray;
 }
 
-table {
-  border: 1px solid black;
+/* Table styling */
+
+.table {
+  border: 0px solid black;
   border-collapse: collapse;
   font-family: sans-serif;
   font: Helvetica;
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: flex-start;
+
 }
+
+/* Table headers styling */
+
+.table-headers {
+  text-align: right;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+
+
+  background-color: plum;
+
+}
+
+.table-rows {
+  display: flex;
+  flex-direction: column;
+
+
+  background-color: orange;
+}
+
+.table-row {
+
+  display: flex;
+  flex-direction: row;
+  align-content: flex-start;
+
+
+}
+
+.table-header-start {
+  width: 50px;
+  height: 50px;
+}
+
+.table-header {
+  height: 100px;
+  width: 121.1px;
+  border-top: black solid 1px;
+
+}
+
+/* årstall */
+.table-cell-start {
+  width: 50px;
+  height: 15px;
+  background-color: seagreen;
+    border-left: white solid 1px;
+
+}
+/* innhold */
+.table-cell {
+    height: 15px;
+    width: 120px;
+  background-color: orange;
+
+  border-left: white solid 1px;
+  border-bottom: white solid 1px;
+}
+
+
+/*
+
 
 td {
   text-align: center;
@@ -64,16 +136,49 @@ td {
   padding: 7px;
 }
 
-/* detalj_historisk_headers - headerne */
+detalj_historisk_headers - headerne
 tr > th {
   background-color: lightskyblue;
   border: 1px solid black;
   text-align: left;
 }
 
-/* midlertidig, bare for synlighet/farge */
+midlertidig, bare for synlighet/farge
+*/
 @media only screen and (max-width: 600px) {
-  table {
-    background-color: dodgerblue;
+  .table {
+    flex-direction: row;
+  }
+
+  .table-headers {
+    flex-direction: column;
+  }
+
+  .table-rows {
+    flex-direction: row;
+  }
+
+  .table-row {
+    flex-direction: column;
+  }
+
+
+  .table-header-start {
+    height: 15px;
+  }
+
+  .table-cell-start {
+    width:100px;
+    height: 15px;
+  }
+
+  .table-header {
+    height: 70px;
+    width: 150px;
+  }
+
+  .table-cell {
+    height: 70px;
+    width: 100px;
   }
 }
