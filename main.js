@@ -1,4 +1,4 @@
-//function that makes content of elements visible
+//function that makes content of category elements visible
 //is being called by button onclick in html
 
 function viseInnhold(innhold) {

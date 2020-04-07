@@ -12,6 +12,12 @@ h2 {
   color: #3c3c3c;
 }
 
+/* Styling span with id bold */
+#bold {
+  font-style: normal;
+  font-weight: bold;
+}
+
 /* Styling of the category buttons (navigation) */
 .kategorier button {
   background-color: #333;
@@ -26,6 +32,31 @@ h2 {
   background-color: gray;
 }
 
+#introduksjon{
+  width: auto;
+  max-width: 50vw;
+}
+
+
+
+
+/* Search bars */
+#detaljer label {
+  margin: 10px;
+}
+
+#detaljer button {
+  margin: 10px;
+}
+
+input {
+  margin-top: 10px;
+}
+
+#sammenligning button {
+  margin-top: 10px;
+}
+
 /* Styling to hide/show the content of the chosen category */
 .hidden {
   display: none;
@@ -33,7 +64,6 @@ h2 {
 .visible {
   display: block;
 }
-
 
 /* Footer styling */
 footer {
@@ -94,6 +124,8 @@ footer {
   align-items: center;
   color: #232323;
   background-color: LightGray;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
 }
 
 /* Styling for smaller screens */
@@ -105,12 +137,14 @@ footer {
 
   .table-row {
     padding-bottom: 30px;
+    padding-left: 0px;
     flex-direction: row;
+    border: 1px solid black;
   }
 
   .table-cell {
     padding: 0px 10px;
-    flex-direction: column
+    flex-direction: column;
   }
 
   .table-cell-content {
@@ -118,7 +152,7 @@ footer {
   }
 }
 
-/* Styling sammenligning */
+/* Styling compare section */
 
 .sammenlignkommune {
   width: 100px;
@@ -129,18 +163,29 @@ footer {
   text-align: center;
 }
 
-
-
 #sammenligntekst{
   float:left;
   padding-top: 40px;
+  padding-left: 10px;
+  padding-right: 10px;
   text-align: center;
 }
 
 #sammenligntekst ul {
   padding-left: 0px;
+  text-align: center;
 }
 
 ul {
     list-style-type: none;
+}
+
+
+
+#winnerColor {
+  background-color: #b0ff83;
+}
+
+#looserColor {
+  background-color: #ffc0c0;
 }

@@ -318,12 +318,17 @@ function writeDetails(dataObj, input)
 
 
 
+
+
+
+
+
+
+
+
+
 // Function that displays a comparison of two given municipalities
 function writeComparison(dataset_obj, input1, input2) {
-  // Input, kommunenummere
-  console.log("dataset", dataset_obj);
-  console.log("input", input1, input2);
-
   // The HTML-element that contains all information about the municipality
   var compare = document.getElementsByClassName("sammenlignkommune")
   var compareElem = [compare[0].children, compare[1].children]
@@ -461,15 +466,15 @@ function writeComparison(dataset_obj, input1, input2) {
 
         // If municipality 1 has a better score
         if(dict1[gender] > dict2[gender]) {
-          writeListElement("!"+dict1[gender]+"!", kommuneData[0].compareElem[1])
-          writeListElement(dict2[gender], kommuneData[1].compareElem[1])
+          writeListElement("<span id='winnerColor'>"+dict1[gender]+"</span>", kommuneData[0].compareElem[1])
+          writeListElement("<span id='looserColor'>"+ dict2[gender] + "</span>", kommuneData[1].compareElem[1])
 
           points.push(1)
 
         // If municipality 2 has a better score
         } else if (dict2[gender] > dict1[gender]) {
-          writeListElement(dict1[gender], kommuneData[0].compareElem[1])
-          writeListElement("!"+dict2[gender]+"!", kommuneData[1].compareElem[1])
+          writeListElement("<span id=looserColor>"+dict1[gender]+"</span>", kommuneData[0].compareElem[1])
+          writeListElement("<span id=winnerColor>"+dict2[gender]+"</span>", kommuneData[1].compareElem[1])
           points.push(0)
 
         // If it's a tie
