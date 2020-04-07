@@ -73,6 +73,14 @@ footer {
   background-color: lightgray;
 }
 
+
+.municipality-info {
+  padding-bottom: 50px;
+  border-bottom: 1px solid black;
+}
+
+
+
 /* Table styling */
 .table {
   border: 0px solid black;

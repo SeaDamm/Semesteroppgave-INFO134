@@ -35,12 +35,14 @@ function calculatePopulation(year, infoObj) {
 function writeOverview(obj) {
 
   var list = document.createElement("ul");
+
   for (kommune of obj.getNames()){
     var info = obj.data.elementer[kommune]
 
     var paragraph = document.createElement("li");
+    paragraph.className = "municipality-info"
     // municipality name
-    newLine(paragraph, "<h2>" + kommune + "</h2>")
+    newLine(paragraph, "<h2>" + kommune + "</h2>", 0, 0)
 
     // municipality number
     newLine(paragraph, "Kommunenummer: " + info.kommunenummer)
@@ -395,7 +397,7 @@ function writeComparison(dataset_obj, input1, input2) {
 
     for(var index in educationLevel){
     var category = educationLevel[index]
-      if (index == "kommunenummer"){
+      if (index == "kommunenummer" || index == "09a"){
         continue
       }
 
@@ -421,7 +423,6 @@ function writeComparison(dataset_obj, input1, input2) {
           break;
       }
 
-
       var educationMen = toArray(category.Menn).sort()
       var educationMen = lastIndex(educationMen)
       var educationMen = category.Menn[educationMen]
@@ -441,7 +442,6 @@ function writeComparison(dataset_obj, input1, input2) {
     flushList(compareText)
     makeEducationDict(kommuneData[0])
     makeEducationDict(kommuneData[1])
-
 
   // Display everything on screen
 
@@ -468,7 +468,6 @@ function writeComparison(dataset_obj, input1, input2) {
         if(dict1[gender] > dict2[gender]) {
           writeListElement("<span id='winnerColor'>"+dict1[gender]+"</span>", kommuneData[0].compareElem[1])
           writeListElement("<span id='looserColor'>"+ dict2[gender] + "</span>", kommuneData[1].compareElem[1])
-
           points.push(1)
 
         // If municipality 2 has a better score
